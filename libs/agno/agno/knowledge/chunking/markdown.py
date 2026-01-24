@@ -166,7 +166,6 @@ class MarkdownChunking(ChunkingStrategy):
             if self.split_on_headings:
                 meta_data = chunk_meta_data.copy()
                 meta_data["chunk"] = chunk_number
-                # Use content-based hash as fallback when document has no id or name
                 chunk_id = self._generate_chunk_id(document, chunk_number, section)
                 meta_data["chunk_size"] = section_size
 
@@ -179,7 +178,6 @@ class MarkdownChunking(ChunkingStrategy):
                 meta_data = chunk_meta_data.copy()
                 meta_data["chunk"] = chunk_number
                 chunk_content = "\n\n".join(current_chunk)
-                # Use content-based hash as fallback when document has no id or name
                 chunk_id = self._generate_chunk_id(document, chunk_number, chunk_content)
                 meta_data["chunk_size"] = len(chunk_content)
 
@@ -195,7 +193,6 @@ class MarkdownChunking(ChunkingStrategy):
             meta_data = chunk_meta_data.copy()
             meta_data["chunk"] = chunk_number
             chunk_content = "\n\n".join(current_chunk)
-            # Use content-based hash as fallback when document has no id or name
             chunk_id = self._generate_chunk_id(document, chunk_number, chunk_content)
             meta_data["chunk_size"] = len(chunk_content)
             chunks.append(Document(id=chunk_id, name=document.name, meta_data=meta_data, content=chunk_content))
